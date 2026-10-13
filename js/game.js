@@ -580,7 +580,7 @@
     const tr = teamRadius();
     G.teamBalls.forEach((t, i) => {
       t.r = tr;
-      t.homeX = W * (i === 0 ? 0.14 : 0.86);
+      t.homeX = W / 2 + (i === 0 ? -1 : 1) * Math.max(tr * 2.2, W * 0.09); // dekat tengah agar mudah dilacak kamera
       t.homeY = H - tr - Math.max(64, H * 0.09); // beri ruang untuk label & bilah bawah
       clampBall(t);
     });
