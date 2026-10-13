@@ -3,108 +3,245 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#070a16">
   <title>Kuis Gerak – Media Pembelajaran IFP</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- ================= HALAMAN AWAL ================= -->
+  <!-- ===================================================== MENU -->
   <section id="menu" class="screen active">
-    <div class="menu-wrap">
-      <header class="brand">
-        <div class="logo">🖐️</div>
-        <div>
-          <h1>Kuis Gerak</h1>
-          <p>Seret bola timmu dengan <b>telapak tangan terbuka</b>, tabrakkan ke jawaban yang benar!</p>
+    <div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <div class="menu">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-logo"><i data-icon="hand"></i></div>
+          <div class="brand-text"><b>Kuis Gerak</b><small>Media Pembelajaran Interaktif</small></div>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn labeled" id="btnBank" type="button"><i data-icon="edit"></i><span>Kelola Soal</span></button>
+          <button class="icon-btn" id="btnSound" type="button" title="Suara"><i data-icon="volume"></i></button>
+          <button class="icon-btn" id="btnFull" type="button" title="Layar penuh"><i data-icon="maximize"></i></button>
         </div>
       </header>
 
-      <div class="block">
-        <h2 class="label"><span class="num">1</span> Pilih Mata Pelajaran</h2>
-        <div id="subjects" class="subjects"></div>
-      </div>
+      <main class="menu-grid">
+        <!-- Hero -->
+        <section class="hero">
+          <span class="eyebrow"><i data-icon="zap"></i> Belajar sambil bergerak</span>
+          <h1>Tabrak jawaban <span class="grad">yang benar</span>, kalahkan tim lawan!</h1>
+          <p class="lead">Dua tim berlomba menyeret bola ke pilihan jawaban yang tepat — dengan gerakan tangan di depan kamera atau sentuhan langsung di layar.</p>
 
-      <div class="block">
-        <h2 class="label"><span class="num">2</span> Waktu per Soal (detik)</h2>
-        <div id="times" class="chips"></div>
-      </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="art-ball ans a1"><span>A</span></div>
+            <div class="art-ball ans a2"><span>B</span></div>
+            <div class="art-ball ans a3"><span>C</span></div>
+            <svg class="art-path" viewBox="0 0 400 200" preserveAspectRatio="none">
+              <path d="M70 180 C 90 110, 150 90, 200 70" />
+              <path d="M330 180 C 310 120, 260 100, 210 72" />
+            </svg>
+            <div class="art-ball team red">A</div>
+            <div class="art-ball team blue">B</div>
+          </div>
 
-      <div class="actions">
-        <button id="btnFull" class="btn ghost" type="button">⛶ Layar Penuh</button>
-        <button id="btnStart" class="btn primary" type="button" disabled>▶ Mulai Kuis</button>
-      </div>
+          <ol class="steps">
+            <li><span class="step-n">1</span><div><strong>Ambil bola tim</strong><small>Buka 5 jari di dekat bola, atau sentuh bolanya.</small></div></li>
+            <li><span class="step-n">2</span><div><strong>Seret ke jawaban</strong><small>Tabrakkan ke bola jawaban yang benar.</small></div></li>
+            <li><span class="step-n">3</span><div><strong>Tercepat menang</strong><small>Salah? Bola pecah & lawan dapat giliran.</small></div></li>
+          </ol>
+        </section>
 
-      <div class="howto">
-        <div><span>🔴🔵</span><p>Tim A memegang <b class="t-red">bola merah</b>, Tim B memegang <b class="t-blue">bola biru</b>.</p></div>
-        <div><span>🖐️</span><p>Buka <b>5 jari</b> di dekat bola untuk mengambil & menyeretnya. Kepalkan tangan untuk melepas.</p></div>
-        <div><span>💥</span><p>Tabrakkan ke jawaban benar. Salah? Bola jawaban pecah & tim lawan dapat kesempatan.</p></div>
+        <!-- Setup -->
+        <section class="setup glass">
+          <div class="field">
+            <div class="field-head"><h3><i data-icon="book"></i> Mata Pelajaran</h3><span class="hint" id="subjectHint">Pilih satu</span></div>
+            <div id="subjects" class="subjects"></div>
+          </div>
+
+          <div class="field">
+            <div class="field-head"><h3><i data-icon="sparkle"></i> Mode Bermain</h3></div>
+            <div class="modes" id="modes">
+              <button class="mode" data-mode="gesture" type="button">
+                <span class="mode-ico"><i data-icon="hand"></i></span>
+                <span class="mode-txt"><b>Gesture</b><small>Kamera membaca telapak tangan</small></span>
+                <span class="mode-check"><i data-icon="check"></i></span>
+              </button>
+              <button class="mode" data-mode="touch" type="button">
+                <span class="mode-ico"><i data-icon="pointer"></i></span>
+                <span class="mode-txt"><b>Sentuh</b><small>Sentuh & seret langsung di layar</small></span>
+                <span class="mode-check"><i data-icon="check"></i></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <div class="field-head"><h3><i data-icon="clock"></i> Waktu per Soal</h3></div>
+              <div class="seg" id="times"></div>
+            </div>
+            <div class="field">
+              <div class="field-head"><h3><i data-icon="list"></i> Jumlah Soal</h3></div>
+              <div class="seg" id="counts"></div>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <div class="field-head"><h3><i data-icon="users"></i> Nama Tim</h3></div>
+              <div class="teams">
+                <label class="team-input red"><span class="dot"></span><input id="nameA" maxlength="14" autocomplete="off" spellcheck="false"></label>
+                <label class="team-input blue"><span class="dot"></span><input id="nameB" maxlength="14" autocomplete="off" spellcheck="false"></label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-head"><h3><i data-icon="settings"></i> Aturan</h3></div>
+              <div class="toggles">
+                <label class="toggle"><input type="checkbox" id="optBonus"><span class="sw"></span><span class="tl"><b>Bonus kecepatan</b><small>Makin cepat, poin makin besar</small></span></label>
+                <label class="toggle"><input type="checkbox" id="optLock"><span class="sw"></span><span class="tl"><b>Tim salah dikunci</b><small>Lawan dapat kesempatan menjawab</small></span></label>
+              </div>
+            </div>
+          </div>
+
+          <button class="start-btn" id="btnStart" type="button" disabled>
+            <span class="start-txt"><b>Mulai Kuis</b><small id="startSummary">Pilih mata pelajaran terlebih dahulu</small></span>
+            <span class="start-arrow"><i data-icon="arrowRight"></i></span>
+          </button>
+        </section>
+      </main>
+    </div>
+
+    <!-- Modal kelola soal -->
+    <div id="bankModal" class="modal hidden">
+      <div class="modal-card glass">
+        <header class="modal-head">
+          <div><h2>Kelola Soal</h2><small>Soal buatan Anda tersimpan otomatis di perangkat ini.</small></div>
+          <button class="icon-btn" id="bankClose" type="button" title="Tutup"><i data-icon="x"></i></button>
+        </header>
+        <div class="bank-tabs" id="bankTabs"></div>
+        <div class="bank-body">
+          <div class="bank-list-wrap">
+            <div class="bank-list-head">
+              <label class="toggle compact"><input type="checkbox" id="bankUseDefault"><span class="sw"></span><span class="tl"><b>Sertakan soal bawaan</b></span></label>
+              <span class="hint" id="bankCount"></span>
+            </div>
+            <ol id="bankList" class="bank-list"></ol>
+          </div>
+          <form id="bankForm" class="bank-form" autocomplete="off">
+            <h3>Tambah Soal Baru</h3>
+            <textarea id="fQ" rows="3" placeholder="Tulis pertanyaan…" required></textarea>
+            <div class="opts" id="fOpts"></div>
+            <p class="form-hint">Pilih lingkaran pada jawaban yang benar. Minimal 2 pilihan terisi.</p>
+            <p class="form-msg" id="fMsg"></p>
+            <button type="submit" class="btn primary"><i data-icon="plus"></i> Tambah Soal</button>
+            <div class="bank-io">
+              <button type="button" id="bankExport" class="btn ghost sm"><i data-icon="download"></i> Ekspor</button>
+              <label class="btn ghost sm"><i data-icon="upload"></i> Impor<input type="file" id="bankImport" accept=".json,application/json" hidden></label>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= HALAMAN KUIS ================= -->
+  <!-- ===================================================== KUIS -->
   <section id="quiz" class="screen">
     <canvas id="stage"></canvas>
-    <video id="cam" playsinline muted autoplay></video>
+    <video id="cam" playsinline muted></video>
 
     <div class="hud" id="hud">
-      <div class="team-score red" id="boxA"><span>Tim A</span><b id="scoreA">0</b></div>
-      <div class="qbox">
-        <div class="qmeta">
-          <span id="qnum">Soal 1/10</span>
-          <span id="qsubject">IPA</span>
-          <span class="timenum">⏱ <b id="timeNum">60</b></span>
-        </div>
-        <div id="qtext">…</div>
-        <div class="timebar" id="timebar"><i id="timefill"></i></div>
+      <div class="team-pill red" id="boxA">
+        <span class="tp-name" id="labelA">Tim A</span>
+        <b class="tp-score" id="scoreA">0</b>
+        <span class="tp-lock"><i data-icon="lock"></i></span>
       </div>
-      <div class="team-score blue" id="boxB"><span>Tim B</span><b id="scoreB">0</b></div>
+
+      <div class="qcard">
+        <div class="qmain">
+          <div class="qhead">
+            <span class="chip" id="qsubject">IPA</span>
+            <span class="qnum" id="qnum">Soal 1 / 10</span>
+          </div>
+          <div id="qtext">…</div>
+          <div class="qdots" id="qdots"></div>
+        </div>
+        <div class="timer-ring" id="timerRing">
+          <svg viewBox="0 0 48 48"><circle class="track" cx="24" cy="24" r="20"/><circle class="prog" id="timerProg" cx="24" cy="24" r="20"/></svg>
+          <b id="timeNum">60</b>
+        </div>
+      </div>
+
+      <div class="team-pill blue" id="boxB">
+        <span class="tp-name" id="labelB">Tim B</span>
+        <b class="tp-score" id="scoreB">0</b>
+        <span class="tp-lock"><i data-icon="lock"></i></span>
+      </div>
     </div>
 
-    <div id="banner" class="banner"></div>
-    <div id="camStatus" class="cam-status"></div>
+    <div id="toast" class="toast"></div>
 
-    <div class="controls">
-      <button id="btnPause" type="button" title="Jeda">⏸</button>
-      <button id="btnFull2" type="button" title="Layar penuh">⛶</button>
-      <button id="btnExit" type="button" title="Kembali ke menu">✕</button>
+    <div class="bottom-bar">
+      <div id="camStatus" class="status-chip"></div>
+      <div class="toolbar glass">
+        <button id="btnPause" type="button" title="Jeda (Spasi)"><i data-icon="pause"></i></button>
+        <button id="btnFilter" type="button" title="Filter redup"><i data-icon="sunDim"></i></button>
+        <button id="btnSkip" type="button" title="Lewati soal"><i data-icon="skip"></i></button>
+        <button id="btnFull2" type="button" title="Layar penuh (F)"><i data-icon="maximize"></i></button>
+        <button id="btnExit" type="button" title="Keluar"><i data-icon="x"></i></button>
+      </div>
     </div>
 
     <div id="loading" class="overlay hidden">
-      <div class="spinner"></div>
-      <p id="loadingText">Menyiapkan kamera…</p>
-      <button id="btnSkipCam" class="btn ghost small hidden" type="button">Lanjut tanpa kamera (mode sentuh)</button>
+      <div class="dialog glass">
+        <div class="spinner"></div>
+        <h3>Menyiapkan mode gesture</h3>
+        <p id="loadingText">Menyiapkan kamera…</p>
+        <button id="btnSkipCam" class="btn ghost sm hidden" type="button"><i data-icon="pointer"></i> Main dengan mode sentuh</button>
+      </div>
     </div>
 
     <div id="pauseOverlay" class="overlay hidden">
-      <h2>⏸ Jeda</h2>
-      <div class="actions">
-        <button id="btnResume" class="btn primary" type="button">▶ Lanjutkan</button>
-        <button id="btnQuit" class="btn ghost" type="button">🏠 Menu</button>
+      <div class="dialog glass">
+        <div class="dialog-ico"><i data-icon="pause"></i></div>
+        <h3>Permainan dijeda</h3>
+        <p id="pauseNote">Kamera dinonaktifkan sementara.</p>
+        <div class="dialog-actions">
+          <button id="btnResume" class="btn primary" type="button"><i data-icon="play"></i> Lanjutkan</button>
+          <button id="btnRestart" class="btn ghost" type="button"><i data-icon="rotate"></i> Ulangi</button>
+          <button id="btnQuit" class="btn ghost" type="button"><i data-icon="home"></i> Menu</button>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= HALAMAN HASIL ================= -->
+  <!-- ===================================================== HASIL -->
   <section id="result" class="screen">
-    <div class="result-card">
-      <div class="trophy" id="trophy">🏆</div>
-      <h1 id="winnerText">Tim A Menang!</h1>
-      <p id="resultSubject" class="muted"></p>
-      <div class="final-scores">
-        <div class="final red"><span>Tim A</span><b id="finalA">0</b></div>
-        <div class="vs">VS</div>
-        <div class="final blue"><span>Tim B</span><b id="finalB">0</b></div>
+    <div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+    <canvas id="confetti"></canvas>
+    <div class="result">
+      <div class="result-main glass">
+        <div class="trophy" id="trophy">🏆</div>
+        <span class="eyebrow" id="resultSubject"></span>
+        <h1 id="winnerText">Tim A Menang!</h1>
+        <div class="final-scores">
+          <div class="final red" id="finalBoxA"><span id="finalNameA">Tim A</span><b id="finalA">0</b></div>
+          <span class="vs">VS</span>
+          <div class="final blue" id="finalBoxB"><span id="finalNameB">Tim B</span><b id="finalB">0</b></div>
+        </div>
+        <div class="stats" id="stats"></div>
+        <div class="dialog-actions">
+          <button id="btnAgain" class="btn primary" type="button"><i data-icon="rotate"></i> Main Lagi</button>
+          <button id="btnHome" class="btn ghost" type="button"><i data-icon="home"></i> Menu Utama</button>
+        </div>
       </div>
-      <div class="actions">
-        <button id="btnAgain" class="btn primary" type="button">🔁 Main Lagi</button>
-        <button id="btnHome" class="btn ghost" type="button">🏠 Menu Utama</button>
+      <div class="recap glass">
+        <h3>Rekap Jawaban</h3>
+        <ol id="recapList"></ol>
       </div>
     </div>
-    <canvas id="confetti"></canvas>
   </section>
 
   <script src="js/questions.js"></script>
