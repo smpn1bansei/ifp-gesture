@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Kuis Gerak – Media Pembelajaran IFP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ================= HALAMAN AWAL ================= -->
+  <section id="menu" class="screen active">
+    <div class="menu-wrap">
+      <header class="brand">
+        <div class="logo">🖐️</div>
+        <div>
+          <h1>Kuis Gerak</h1>
+          <p>Seret bola timmu dengan <b>telapak tangan terbuka</b>, tabrakkan ke jawaban yang benar!</p>
+        </div>
+      </header>
+
+      <div class="block">
+        <h2 class="label"><span class="num">1</span> Pilih Mata Pelajaran</h2>
+        <div id="subjects" class="subjects"></div>
+      </div>
+
+      <div class="block">
+        <h2 class="label"><span class="num">2</span> Waktu per Soal (detik)</h2>
+        <div id="times" class="chips"></div>
+      </div>
+
+      <div class="actions">
+        <button id="btnFull" class="btn ghost" type="button">⛶ Layar Penuh</button>
+        <button id="btnStart" class="btn primary" type="button" disabled>▶ Mulai Kuis</button>
+      </div>
+
+      <div class="howto">
+        <div><span>🔴🔵</span><p>Tim A memegang <b class="t-red">bola merah</b>, Tim B memegang <b class="t-blue">bola biru</b>.</p></div>
+        <div><span>🖐️</span><p>Buka <b>5 jari</b> di dekat bola untuk mengambil & menyeretnya. Kepalkan tangan untuk melepas.</p></div>
+        <div><span>💥</span><p>Tabrakkan ke jawaban benar. Salah? Bola jawaban pecah & tim lawan dapat kesempatan.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HALAMAN KUIS ================= -->
+  <section id="quiz" class="screen">
+    <canvas id="stage"></canvas>
+    <video id="cam" playsinline muted autoplay></video>
+
+    <div class="hud" id="hud">
+      <div class="team-score red" id="boxA"><span>Tim A</span><b id="scoreA">0</b></div>
+      <div class="qbox">
+        <div class="qmeta">
+          <span id="qnum">Soal 1/10</span>
+          <span id="qsubject">IPA</span>
+          <span class="timenum">⏱ <b id="timeNum">60</b></span>
+        </div>
+        <div id="qtext">…</div>
+        <div class="timebar" id="timebar"><i id="timefill"></i></div>
+      </div>
+      <div class="team-score blue" id="boxB"><span>Tim B</span><b id="scoreB">0</b></div>
+    </div>
+
+    <div id="banner" class="banner"></div>
+    <div id="camStatus" class="cam-status"></div>
+
+    <div class="controls">
+      <button id="btnPause" type="button" title="Jeda">⏸</button>
+      <button id="btnFull2" type="button" title="Layar penuh">⛶</button>
+      <button id="btnExit" type="button" title="Kembali ke menu">✕</button>
+    </div>
+
+    <div id="loading" class="overlay hidden">
+      <div class="spinner"></div>
+      <p id="loadingText">Menyiapkan kamera…</p>
+      <button id="btnSkipCam" class="btn ghost small hidden" type="button">Lanjut tanpa kamera (mode sentuh)</button>
+    </div>
+
+    <div id="pauseOverlay" class="overlay hidden">
+      <h2>⏸ Jeda</h2>
+      <div class="actions">
+        <button id="btnResume" class="btn primary" type="button">▶ Lanjutkan</button>
+        <button id="btnQuit" class="btn ghost" type="button">🏠 Menu</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HALAMAN HASIL ================= -->
+  <section id="result" class="screen">
+    <div class="result-card">
+      <div class="trophy" id="trophy">🏆</div>
+      <h1 id="winnerText">Tim A Menang!</h1>
+      <p id="resultSubject" class="muted"></p>
+      <div class="final-scores">
+        <div class="final red"><span>Tim A</span><b id="finalA">0</b></div>
+        <div class="vs">VS</div>
+        <div class="final blue"><span>Tim B</span><b id="finalB">0</b></div>
+      </div>
+      <div class="actions">
+        <button id="btnAgain" class="btn primary" type="button">🔁 Main Lagi</button>
+        <button id="btnHome" class="btn ghost" type="button">🏠 Menu Utama</button>
+      </div>
+    </div>
+    <canvas id="confetti"></canvas>
+  </section>
+
+  <script src="js/questions.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
